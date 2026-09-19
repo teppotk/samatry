@@ -68,7 +68,12 @@ Things that will bite you if you touch this tree:
 
 - `.nojekyll` at the repo root is required: Jekyll would otherwise drop files and
   directories the archive depends on.
-- Pages was not yet enabled on the repo as of the archive capture; enable it on `main`
-  / root.
-- Archive entry point once published: `/samatry/archive/` (or `/archive/` under a
-  custom domain). All links inside the mirror are relative, so it works under any prefix.
+- Pages is enabled on `main` / root. Live at `https://teppotk.github.io/samatry/`;
+  the archive is at `/samatry/archive/`. All links inside the mirror are relative, so it
+  also works under a custom domain or any other prefix.
+- The site root currently 404s — there is no `index.html` yet. That page is part of the
+  new-site workstream, pending the bylaws.
+- Finnish directory names are stored NFC-normalized in git (`ä` = `\303\244`) and linked
+  as `%C3%A4`. macOS hands back NFD from the filesystem, so a shell loop that pipes
+  `find` output into `curl` will produce `%CC%88` and spurious 404s. Not a real failure —
+  compare against git, not the filesystem.
