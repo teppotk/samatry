@@ -46,11 +46,21 @@ with per-page stylesheets `css/<n>.css`.
 
 Things that will bite you if you touch this tree:
 
-- **Treat it as read-only.** It is an archival record. Put anything explanatory in
-  `archive/index.html` instead of editing the mirrored pages.
-- **Asset filenames contain `@`** (`css/site.css@v=20240229101528`, `js/main.js@v=…`).
-  That is `--restrict-file-names=windows` rewriting the original `?v=` query strings.
-  Links inside the mirror already point at these names; don't "fix" them.
+- **Treat it as read-only for content.** It is an archival record. Put anything
+  explanatory in `archive/index.html` rather than rewriting the mirrored pages' text.
+  Asset *plumbing* was repaired once (see next point) and may be repaired again.
+- **Asset filenames no longer contain `@` — this was fixed 2026-09-19.**
+  `--restrict-file-names=windows` had turned the original `?v=`/`?ts=` cache-busting
+  query strings into filenames like `css/site.css@v=20240229101528`. Those names do not
+  end in `.css`, so both `python3 -m http.server` and GitHub Pages served them as
+  `application/octet-stream`, and browsers refuse a stylesheet with a non-CSS MIME type.
+  **The whole archive rendered unstyled, locally and live, from the first commit.**
+  The fix: strip the `@…` suffix from all 40 affected files and rewrite the 118
+  references in 24 HTML/CSS/JS files. Duplicates that collapsed to the same name were
+  verified byte-identical first. Verified afterwards: 204 local CSS/JS assets across all
+  22 pages return 200 with a correct MIME type.
+  **If you ever re-run the wget capture, you must redo this** — drop
+  `--restrict-file-names=windows`, or strip the suffixes again afterwards.
 - **Directory names contain Finnish characters** (`Tietoa-meistä/`,
   `Yhteistyötahot/`). Links reference them percent-encoded (`Tietoa-meist%C3%A4`).
 - **`<base href="" />` remains in every page.** wget emptied the original
