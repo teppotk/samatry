@@ -64,7 +64,7 @@ a:hover { text-decoration-thickness: 2px; }
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--tila-s) var(--tila-m);
+  gap: 0.6rem var(--tila-m);
   padding-block: 1.5rem;
   color: var(--lumi);
 }
@@ -79,7 +79,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .navi__nimi span { color: var(--kirkas); font-weight: 400; }
 
-.navi__linkit { display: flex; flex-wrap: wrap; gap: var(--tila-m); }
+.navi__linkit { display: flex; flex-wrap: wrap; gap: 0.6rem var(--tila-m); }
 .navi a:not(.navi__nimi) {
   color: var(--kirkas);
   font-size: 0.95rem;
@@ -199,7 +199,7 @@ a:hover { text-decoration-thickness: 2px; }
 /* Liity */
 
 .liity { background: var(--hiekka); }
-.liity .osio__johto { color: #4A4433; }
+.liity .osio__johto { color: #4A4433; margin-bottom: var(--tila-s); }
 
 /* Alatunniste */
 
